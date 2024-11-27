@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WHOIS Report</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>WHOIS Report</h1>
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="{{ url_for('messages') }}">Messages</a>
+        <a href="{{ url_for('whois') }}">WHOIS Report</a>
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('register') }}">Register</a>
+    </nav>
+    <h2>IP Information</h2>
+    <ul>
+        <li>IP: {{ whois_info.ip }}</li>
+        <li>Country: {{ whois_info.country }}</li>
+        <li>Region: {{ whois_info.region }}</li>
+        <li>City: {{ whois_info.city }}</li>
+        <li>ISP: {{ whois_info.isp }}</li>
+        <li>Organization: {{ whois_info.org }}</li>
+    </ul>
+</body>
+</html>

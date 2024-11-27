@@ -1,0 +1,7 @@
+Flask==2.0.1
+Flask-SQLAlchemy==2.5.1
+cryptography==3.4.7
+requests==2.25.1
+socks==0.1.0
+stem==1.8.0
+scapy==2.4.5

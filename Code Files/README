@@ -1,0 +1,81 @@
+# Project Title
+
+## Overview
+
+This project consists of three main Python scripts: `app.py`, `socksTest.py`, and `torPortScan.py`. Each script serves a different purpose related to web application development, Tor network interaction, and network traffic monitoring.
+
+## Files and Descriptions
+
+### app.py
+
+This script sets up a Flask web application with SQLAlchemy for database management and includes encryption functionality using the Fernet symmetric encryption method.
+
+#### Functions:
+- `initialize_encryption_key() -> bytes`: Checks if an encryption key already exists in the KeyStore table. If it does, returns the existing key. If not, generates a new key, stores it in the KeyStore table, and returns the new key.
+
+#### Classes:
+- `KeyStore(db.Model)`: Represents the KeyStore table in the database, which stores encryption keys.
+- `Message(db.Model)`: Represents the Message table in the database, which stores messages.
+- `User(db.Model)`: Represents the User table in the database, which stores user information.
+
+### socksTest.py
+
+This script interacts with the Tor network to perform WHOIS lookups and send HTTP requests anonymously.
+
+#### Functions:
+- `connect_to_tor() -> Controller`: Connects to a running Tor process and returns the controller object.
+- `request_new_identity(controller: Controller) -> None`: Requests a new identity from the Tor network using the provided controller.
+- `send_request_via_tor(url: str) -> None`: Sends an HTTP request to the specified URL via the Tor network and prints the response.
+- `get_whois_info(ip: str) -> str`: Performs a WHOIS lookup for the given IP address and returns the result.
+
+#### Main Execution:
+- Connects to the Tor network.
+- Requests a new identity.
+- Prompts the user to enter a website or use a default IP test URL.
+- Sends an HTTP request via Tor.
+- If the default IP test URL is used, prompts the user to enter an IP address for a WHOIS lookup and prints the result.
+
+### torPortScan.py
+
+This script monitors network traffic to identify potential Tor network activity by scanning for common Tor ports and performing WHOIS lookups.
+
+#### Functions:
+- `get_whois_info(ip: str, detailed: bool = False) -> str`: Performs a WHOIS lookup for the given IP address and returns the result. If detailed is True, returns the full WHOIS output; otherwise, returns a summary.
+- `packet_callback(packet) -> None`: Callback function for processing captured packets. Checks if the packet is an IP/TCP packet and if the destination port is a common Tor port. If so, performs a WHOIS lookup on the destination IP.
+
+#### Main Execution:
+- Defines a list of common ports used by the Tor network.
+- Sets a flag to control scanning.
+- Defines functions for WHOIS lookups and packet processing.
+- (Further implementation details would include starting packet capture and handling threading for continuous monitoring.)
+
+## Installation
+
+To install the necessary dependencies, run the following command:
+
+```sh
+pip install -r requirements.txt
+```
+
+# Running the Flask Application
+To start the Flask application, run:
+```sh
+python app.py
+```
+
+# Running socksTest.py
+To interact with the Tor network and perform WHOIS lookups, run:
+```sh
+python socksTest.py
+```
+
+# Running torPortScan.py
+To monitor network traffic for Tor activity, run:
+```sh
+python torPortScan.py
+```
+
+The hashed password in your torrc file should be generated using
+```sh
+tor --hash-password 'test123'
+```
